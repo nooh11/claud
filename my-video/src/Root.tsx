@@ -1,41 +1,74 @@
 import "./index.css";
 import { Composition } from "remotion";
-import { RealEstateAd } from "./RealEstateAd/RealEstateAd";
-import { listingSchema } from "./RealEstateAd/schema";
+import { SahmAlInjaz } from "./SahmAlInjaz/SahmAlInjaz";
+import { projectSchema } from "./SahmAlInjaz/schema";
 
 export const RemotionRoot: React.FC = () => {
   return (
     <>
       <Composition
-        id="RealEstateAd"
-        component={RealEstateAd}
-        durationInFrames={900}
-        fps={30}
+        id="SahmAlInjaz"
+        component={SahmAlInjaz}
+        durationInFrames={1800}
+        fps={60}
         width={1080}
         height={1920}
-        schema={listingSchema}
+        schema={projectSchema}
         defaultProps={{
-          propertyType: "فيلا",
-          district: "حي الياسمين",
-          city: "الرياض",
-          price: "1,850,000",
-          currency: "ريال",
-          area: "400 م²",
-          rooms: "5",
-          bathrooms: "6",
-          parking: "2",
-          readinessTag: "إفراغ فوري",
-          features: [
-            "تشطيب سوبر لوكس بالكامل",
-            "صك إلكتروني · جاهزة للإفراغ",
-            "قريبة من المدارس والخدمات",
-            "شقة ملحق مستقلة بمدخل خاص",
-          ],
-          phonePrimary: "0534977299",
-          phoneSecondary: "0541882299",
-          brandName: "إحياء",
-          adLicence: "الرقم الإعلاني: [أدخل الرقم]",
+          projectName: "سهم الإنجاز",
+          statusTag: "جاهز للتسليم",
+          headline: "شقق تمليك جاهزة للسكن",
+          subline: "بدأ البيع",
+          district: "حي الشعلة",
+          city: "الدمام",
           photo: "property-placeholder.svg",
+          places: [
+            { name: "مسجد الحي", minutes: 3 },
+            { name: "إثراء", minutes: 5 },
+            { name: "بوابة أرامكو", minutes: 7 },
+            { name: "جامعة الإمام عبدالرحمن بن فيصل", minutes: 15 },
+          ],
+          models: [
+            {
+              letter: "B",
+              name: "الدور الأول والثاني",
+              area: 201,
+              price: 630000,
+              rooms: "3 غرف نوم",
+              baths: "4 دورات مياه",
+              note: "بلكونة",
+            },
+            {
+              letter: "A",
+              name: "الدور الأرضي",
+              area: 193,
+              price: 640000,
+              rooms: "3 غرف نوم",
+              baths: "3 دورات مياه",
+              note: "مدخل مستقل",
+            },
+            {
+              letter: "C",
+              name: "الملحق العلوي",
+              area: 201,
+              price: 730000,
+              rooms: "3 غرف نوم",
+              baths: "3 دورات مياه",
+              note: "3 أسطح خاصة",
+            },
+          ],
+          warranties: [
+            { years: 10, label: "تأمين على العيوب الخفية" },
+            { years: 15, label: "مواسير الصرف والتغذية" },
+            { years: 10, label: "المصعد والعزل" },
+          ],
+          ctaLine: "احجز بيتك الآن",
+          phonePrimary: "0541882299",
+          phoneSecondary: "0534977299",
+          website: "EHYA.SA",
+          unifiedNumber: "920033936",
+          adLicence: "رقم الإعلان: 7201112278",
+          logo: "",
         }}
       />
     </>
