@@ -8,8 +8,15 @@ export const projectSchema = z.object({
   district: z.string(),
   city: z.string(),
   photo: z.string(),
-  coverTall: z.string(),
-  logoGreen: z.string(),
+  latinName: z.string(),
+  latinTag: z.string(),
+  hookLineOne: z.string(),
+  hookLineTwo: z.string(),
+  priceThousands: z.number(),
+  chips: z.array(z.string()).length(4),
+  specRows: z
+    .array(z.object({ labelAr: z.string(), labelEn: z.string(), value: z.string() }))
+    .length(5),
   galleryOne: z.string(),
   galleryTwo: z.string(),
   galleryThree: z.string(),

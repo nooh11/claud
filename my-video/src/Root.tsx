@@ -9,21 +9,32 @@ export const RemotionRoot: React.FC = () => {
       <Composition
         id="SahmAlInjaz"
         component={SahmAlInjaz}
-        durationInFrames={2100}
+        durationInFrames={1680}
         fps={60}
         width={1080}
         height={1920}
         schema={projectSchema}
         defaultProps={{
           projectName: "سهم الإنجاز",
-          statusTag: "جاهزة للسكن الفوري",
+          statusTag: "بدأ البيع · جاهز للتسليم",
           headline: "شقق تمليك جاهزة",
           subline: "بدأ البيع",
           district: "حي الشعلة",
           city: "الدمام",
           photo: "project-exterior.jpg",
-          coverTall: "cover-tall.jpg",
-          logoGreen: "ehya-amlak-green.svg",
+          latinName: "Sahm Al-Injaz",
+          latinTag: "Ready To Move In",
+          hookLineOne: "بيتــك جاهــز",
+          hookLineTwo: "تســكنه من أول يوم",
+          priceThousands: 630,
+          chips: ["خزان مستقل", "مصعد لكل دور", "مواقف مظللة", "تمويل عقاري متاح"],
+          specRows: [
+            { labelAr: "النموذج", labelEn: "Model", value: "الدور الأول والثاني" },
+            { labelAr: "المساحة", labelEn: "Area", value: "201 م²" },
+            { labelAr: "الغرف", labelEn: "Rooms", value: "3 نوم · 4 دورات" },
+            { labelAr: "التسليم", labelEn: "Handover", value: "فوري" },
+            { labelAr: "التشطيب", labelEn: "Finishing", value: "فاخر جاهز" },
+          ],
           galleryOne: "exterior-entrance.jpg",
           galleryTwo: "interior-lobby.jpg",
           galleryThree: "interior-living.jpg",
@@ -72,7 +83,7 @@ export const RemotionRoot: React.FC = () => {
             { years: 15, label: "مواسير الصرف والتغذية" },
             { years: 10, label: "المصعد والعزل" },
           ],
-          ctaLine: "احجز وحدتك الآن",
+          ctaLine: "إفـراغ فـوري",
           phonePrimary: "0541882299",
           phoneSecondary: "0534977299",
           website: "EHYA.SA",

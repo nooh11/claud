@@ -1,190 +1,220 @@
-import {
-  AbsoluteFill,
-  Easing,
-  Img,
-  Interactive,
-  interpolate,
-  staticFile,
-  useCurrentFrame,
-  useVideoConfig,
-} from "remotion";
+import { Easing, Img, Interactive, interpolate, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
 import { Counter } from "../Counter";
 import { brandFont } from "../fonts";
+import { PosterFrame } from "../PosterFrame";
 import { Reveal } from "../Reveal";
 import type { Project } from "../schema";
 
-/**
- * الغلاف — العمارة هي البطل: الصورة تملأ الكادر كاملًا بسماء ممتدّة،
- * والنص يجلس في السماء بالأخضر الغامق، وشريط سفلي رفيع يحمل التواصل
- * فوق منطقة المظلات دون أن يغطّي الواجهة.
- */
-export const Hook: React.FC<Project> = ({
-  headline,
-  district,
-  city,
-  coverTall,
-  logoGreen,
-  priceFrom,
-  currencyGlyph,
-  statusTag,
-  phonePrimary,
-  phoneSecondary,
-  adLicence,
-}) => {
+/** المشهد الأول — الهوك: العنوان والسعر يظهران خلال أول ثلاث ثوانٍ. */
+export const Hook: React.FC<Project> = (props) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
   return (
-    <AbsoluteFill name="Cover scene" style={{ backgroundColor: "#003E34", direction: "rtl" }}>
-      <Img
-        name="Building photo"
-        src={staticFile(coverTall)}
-        style={{
-          position: "absolute",
-          width: "100%",
-          height: "100%",
-          objectFit: "cover",
-          objectPosition: "center bottom",
-          scale: interpolate(frame, [0, 320], [1.05, 1], {
-            extrapolateLeft: "clamp",
-            extrapolateRight: "clamp",
-            easing: Easing.bezier(0.33, 0, 0.2, 1),
-            output: "perceptual-scale",
-          }),
-        }}
-      />
-
+    <PosterFrame
+      photo={props.photo}
+      projectName={props.projectName}
+      district={props.district}
+      city={props.city}
+      latinName={props.latinName}
+      latinTag={props.latinTag}
+      phonePrimary={props.phonePrimary}
+      phoneSecondary={props.phoneSecondary}
+      website={props.website}
+      adLicence={props.adLicence}
+    >
       <Interactive.Div
-        name="Logo slot"
-        style={{ position: "absolute", top: 270, right: 80, left: 80, textAlign: "center" }}
+        name="Head"
+        style={{ position: "absolute", top: 600, right: 88, left: 88, textAlign: "center" }}
       >
-        <Reveal name="Logo reveal" start={0} end={1 * fps} curtain="#9CCDEC">
-          <Img name="Ehya logo" src={staticFile(logoGreen)} style={{ width: 250 }} />
-        </Reveal>
-      </Interactive.Div>
-
-      <Interactive.Div
-        name="Headline slot"
-        style={{ position: "absolute", top: 470, right: 80, left: 80, textAlign: "center" }}
-      >
-        <Reveal name="Headline reveal" start={0.4 * fps} end={1.5 * fps} curtain="#9CCDEC">
+        <Reveal name="Kicker reveal" start={0} end={0.8 * fps} curtain="#003E34">
           <Interactive.Div
-            name="Headline"
-            style={{ fontFamily: brandFont, fontSize: 90, fontWeight: 700, lineHeight: 1.4, color: "#003E34" }}
-          >
-            {headline}
-          </Interactive.Div>
-        </Reveal>
-      </Interactive.Div>
-
-      <Interactive.Div
-        name="Status slot"
-        style={{ position: "absolute", top: 620, right: 80, left: 80, textAlign: "center" }}
-      >
-        <Reveal name="Status reveal" start={0.8 * fps} end={1.8 * fps} curtain="#9CCDEC">
-          <Interactive.Div
-            name="Status chip"
+            name="Kicker"
             style={{
-              display: "inline-block",
+              display: "inline-flex",
+              flexDirection: "row",
+              alignItems: "center",
+              gap: 12,
+              border: "1px solid rgba(255,185,0,.55)",
+              color: "#FFB900",
               fontFamily: brandFont,
-              fontSize: 40,
-              fontWeight: 600,
+              fontSize: 20,
+              fontWeight: 500,
               lineHeight: 1.5,
-              color: "#003E34",
-              backgroundColor: "#FFB900",
-              padding: "8px 40px",
+              padding: "9px 26px",
+              marginBottom: 34,
             }}
           >
-            {statusTag} · {district} — {city}
+            <Interactive.Div name="Kicker dot" style={{ width: 7, height: 7, backgroundColor: "#FFB900" }} />
+            {props.statusTag}
           </Interactive.Div>
         </Reveal>
-      </Interactive.Div>
 
-      <Interactive.Div
-        name="Price slot"
-        style={{ position: "absolute", top: 730, right: 80, left: 80, textAlign: "center" }}
-      >
-        <Reveal name="Price reveal" start={1.2 * fps} end={2.3 * fps} curtain="#9CCDEC">
+        <Reveal name="T1 reveal" start={0.2 * fps} end={1.2 * fps} curtain="#003E34">
           <Interactive.Div
-            name="Price stack"
-            style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+            name="Headline one"
+            style={{ fontFamily: brandFont, fontSize: 110, fontWeight: 700, lineHeight: 1.14, color: "#FFFFFF" }}
+          >
+            {props.hookLineOne}
+          </Interactive.Div>
+        </Reveal>
+
+        <Reveal name="T2 reveal" start={0.5 * fps} end={1.5 * fps} curtain="#003E34">
+          <Interactive.Div
+            name="Headline two"
+            style={{ fontFamily: brandFont, fontSize: 60, fontWeight: 400, lineHeight: 1.4, color: "#E8C77A" }}
+          >
+            {props.hookLineTwo}
+          </Interactive.Div>
+        </Reveal>
+
+        <Reveal name="Loc reveal" start={0.9 * fps} end={1.9 * fps} curtain="#003E34">
+          <Interactive.Div
+            name="Location pill wrap"
+            style={{ marginTop: 34 }}
           >
             <Interactive.Div
-              name="Price label"
-              style={{ fontFamily: brandFont, fontSize: 40, fontWeight: 400, lineHeight: 1.4, color: "#003E34" }}
+              name="Location pill"
+              style={{
+                display: "inline-flex",
+                flexDirection: "row",
+                alignItems: "center",
+                gap: 12,
+                backgroundColor: "rgba(0,20,17,.28)",
+                border: "1px solid rgba(237,235,228,.20)",
+                padding: "11px 26px",
+                fontFamily: brandFont,
+                fontSize: 24,
+                fontWeight: 400,
+                lineHeight: 1.4,
+                color: "#EDEBE4",
+              }}
             >
-              تبدأ الأسعار من
-            </Interactive.Div>
-            <Interactive.Div
-              name="Price row"
-              style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center", gap: 20 }}
-            >
-              <Interactive.Div
-                name="Price value"
-                style={{ fontFamily: brandFont, fontSize: 150, fontWeight: 700, lineHeight: 1.2, color: "#003E34" }}
-              >
-                <Counter to={priceFrom} from={80} durationInFrames={80} separator />
-              </Interactive.Div>
-              <Interactive.Div
-                name="Currency glyph"
-                style={{ fontFamily: brandFont, fontSize: 80, fontWeight: 400, lineHeight: 1.2, color: "#003E34" }}
-              >
-                {currencyGlyph}
-              </Interactive.Div>
+              <Img name="Pin icon" src={staticFile("icons/location-yellow.svg")} style={{ height: 24 }} />
+              {props.district} — {props.city}
             </Interactive.Div>
           </Interactive.Div>
         </Reveal>
       </Interactive.Div>
 
       <Interactive.Div
-        name="Contact bar"
+        name="Stats"
         style={{
           position: "absolute",
+          top: 1140,
           right: 0,
-          bottom: 0,
           left: 0,
-          height: 200,
-          backgroundColor: "#003E34",
+          padding: "62px 0",
           display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
+          flexDirection: "row",
           justifyContent: "center",
-          gap: 10,
-          translate: interpolate(frame, [1.8 * fps, 2.7 * fps], ["0px 200px", "0px 0px"], {
+          background:
+            "radial-gradient(ellipse 60% 58% at 50% 50%,rgba(0,20,17,.88) 0%,rgba(0,20,17,.66) 42%,rgba(0,20,17,.28) 72%,rgba(0,20,17,0) 100%)",
+          opacity: interpolate(frame, [1.2 * fps, 2 * fps], [0, 1], {
+            extrapolateLeft: "clamp",
+            extrapolateRight: "clamp",
+            easing: Easing.bezier(0.22, 1, 0.36, 1),
+          }),
+          translate: interpolate(frame, [1.2 * fps, 2 * fps], ["0px 30px", "0px 0px"], {
             extrapolateLeft: "clamp",
             extrapolateRight: "clamp",
             easing: Easing.bezier(0.22, 1, 0.36, 1),
           }),
         }}
       >
-        <Interactive.Div
-          name="Phones row"
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: 30,
-            fontFamily: brandFont,
-            fontSize: 50,
-            fontWeight: 600,
-            lineHeight: 1.4,
-            color: "#FFFFFF",
-            direction: "ltr",
-          }}
-        >
-          <Img name="Contact icon" src={staticFile("icons/contact-yellow.svg")} style={{ height: 44 }} />
-          {phonePrimary}
-          <Interactive.Div name="Phone divider" style={{ width: 2, height: 36, backgroundColor: "#FFB900" }} />
-          {phoneSecondary}
+        <Interactive.Div name="Stat price" style={{ padding: "0 46px", textAlign: "center" }}>
+          <Interactive.Div
+            name="Stat price value"
+            style={{ fontFamily: brandFont, fontSize: 60, fontWeight: 600, lineHeight: 1, color: "#FFFFFF" }}
+          >
+            <Counter to={props.priceThousands} from={80} durationInFrames={60} />
+            <Interactive.Div
+              name="Stat price unit"
+              style={{ display: "inline", fontFamily: brandFont, fontSize: 24, fontWeight: 400, color: "#FFB900" }}
+            >
+              {" "}
+              ألف {props.currencyGlyph}
+            </Interactive.Div>
+          </Interactive.Div>
+          <Interactive.Div
+            name="Stat price label"
+            style={{ fontFamily: brandFont, fontSize: 20, fontWeight: 300, lineHeight: 1.4, color: "rgba(237,235,228,.72)", marginTop: 11 }}
+          >
+            تبدأ الأسعار من
+          </Interactive.Div>
         </Interactive.Div>
-        <Interactive.Div
-          name="Ad licence"
-          style={{ fontFamily: brandFont, fontSize: 30, fontWeight: 300, lineHeight: 1.4, color: "#FFFFFF" }}
-        >
-          {adLicence}
+
+        <Interactive.Div name="Stat divider" style={{ width: 1, backgroundColor: "rgba(237,235,228,.20)", margin: "8px 0" }} />
+
+        <Interactive.Div name="Stat warranty" style={{ padding: "0 46px", textAlign: "center" }}>
+          <Interactive.Div
+            name="Stat warranty value"
+            style={{ fontFamily: brandFont, fontSize: 60, fontWeight: 600, lineHeight: 1, color: "#FFFFFF" }}
+          >
+            <Counter to={10} from={100} durationInFrames={50} />
+            <Interactive.Div
+              name="Stat warranty unit"
+              style={{ display: "inline", fontFamily: brandFont, fontSize: 24, fontWeight: 400, color: "#FFB900" }}
+            >
+              {" "}
+              سنوات
+            </Interactive.Div>
+          </Interactive.Div>
+          <Interactive.Div
+            name="Stat warranty label"
+            style={{ fontFamily: brandFont, fontSize: 20, fontWeight: 300, lineHeight: 1.4, color: "rgba(237,235,228,.72)", marginTop: 11 }}
+          >
+            تأمين على العيوب
+          </Interactive.Div>
         </Interactive.Div>
       </Interactive.Div>
-    </AbsoluteFill>
+
+      <Interactive.Div
+        name="Chips"
+        style={{
+          position: "absolute",
+          top: 1330,
+          right: 88,
+          left: 88,
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr",
+          gap: 14,
+        }}
+      >
+        {props.chips.map((chip, i) => (
+          <Interactive.Div
+            key={chip}
+            name="Chip"
+            style={{
+              border: "1px solid rgba(237,235,228,.20)",
+              backgroundColor: "rgba(0,34,29,.62)",
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              gap: 12,
+              padding: "15px 22px",
+              fontFamily: brandFont,
+              fontSize: 22,
+              fontWeight: 400,
+              lineHeight: 1.4,
+              color: "#EDEBE4",
+              opacity: interpolate(frame, [(1.5 + i * 0.12) * fps, (2.1 + i * 0.12) * fps], [0, 1], {
+                extrapolateLeft: "clamp",
+                extrapolateRight: "clamp",
+                easing: Easing.bezier(0.22, 1, 0.36, 1),
+              }),
+              translate: interpolate(frame, [(1.5 + i * 0.12) * fps, (2.1 + i * 0.12) * fps], ["30px 0px", "0px 0px"], {
+                extrapolateLeft: "clamp",
+                extrapolateRight: "clamp",
+                easing: Easing.bezier(0.22, 1, 0.36, 1),
+              }),
+            }}
+          >
+            <Img name="Chip icon" src={staticFile("icons/warranty-yellow.svg")} style={{ height: 22 }} />
+            {chip}
+          </Interactive.Div>
+        ))}
+      </Interactive.Div>
+    </PosterFrame>
   );
 };

@@ -1,245 +1,164 @@
-import {
-  AbsoluteFill,
-  Easing,
-  Interactive,
-  interpolate,
-  useCurrentFrame,
-  useVideoConfig,
-} from "remotion";
+import { Easing, Img, Interactive, interpolate, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
 import { Counter } from "../Counter";
 import { brandFont } from "../fonts";
+import { PosterFrame } from "../PosterFrame";
+import { Reveal } from "../Reveal";
 import type { Project } from "../schema";
 
-export const Models: React.FC<Project> = ({ models }) => {
+/** كارت المواصفات ثنائي اللغة مع شريط الإفراغ الذهبي — مطابق لبوستر النماذج. */
+export const Models: React.FC<Project> = (props) => {
   const frame = useCurrentFrame();
-  const { fps, durationInFrames } = useVideoConfig();
+  const { fps } = useVideoConfig();
+  const model = props.models[0];
 
   return (
-    <AbsoluteFill
-      name="Models scene"
-      style={{
-        backgroundColor: "#003E34",
-        direction: "rtl",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "flex-start",
-        padding: "250px 80px 320px",
-      }}
+    <PosterFrame
+      photo={props.galleryTwo}
+      projectName={props.projectName}
+      district={props.district}
+      city={props.city}
+      latinName="Residential"
+      latinTag="Immediate Handover"
+      phonePrimary={props.phonePrimary}
+      phoneSecondary={props.phoneSecondary}
+      website={props.website}
+      adLicence={props.adLicence}
     >
-      <Interactive.Div
-        name="Section label"
-        style={{
-          fontFamily: brandFont,
-          fontSize: 40,
-          fontWeight: 500,
-          lineHeight: 1.6,
-          color: "#FFB900",
-          opacity: interpolate(
-            frame,
-            [0, 0.6 * fps, durationInFrames - 24, durationInFrames],
-            [0, 1, 1, 0],
-            {
-              extrapolateLeft: "clamp",
-              extrapolateRight: "clamp",
-              easing: [Easing.bezier(0.22, 1, 0.36, 1), Easing.linear, Easing.bezier(0.22, 1, 0.36, 1)],
-            },
-          ),
-        }}
-      >
-        النماذج والأسعار
+      <Interactive.Div name="Head" style={{ position: "absolute", top: 520, right: 88, left: 88, textAlign: "center" }}>
+        <Reveal name="T1 reveal" start={0} end={1 * fps} curtain="#003E34">
+          <Interactive.Div
+            name="Headline one"
+            style={{ fontFamily: brandFont, fontSize: 110, fontWeight: 700, lineHeight: 1.14, color: "#FFFFFF" }}
+          >
+            ثلاثــة نمــاذج
+          </Interactive.Div>
+        </Reveal>
+        <Reveal name="T2 reveal" start={0.3 * fps} end={1.3 * fps} curtain="#003E34">
+          <Interactive.Div
+            name="Headline two"
+            style={{ fontFamily: brandFont, fontSize: 60, fontWeight: 400, lineHeight: 1.4, color: "#E8C77A" }}
+          >
+            اختــر دورك
+          </Interactive.Div>
+        </Reveal>
       </Interactive.Div>
 
       <Interactive.Div
-        name="Section title"
+        name="Spec card"
         style={{
-          fontFamily: brandFont,
-          fontSize: 90,
-          fontWeight: 700,
-          lineHeight: 1.4,
-          color: "#FFFFFF",
-          marginBottom: 50,
-          opacity: interpolate(
-            frame,
-            [0.2 * fps, 0.9 * fps, durationInFrames - 24, durationInFrames],
-            [0, 1, 1, 0],
-            {
-              extrapolateLeft: "clamp",
-              extrapolateRight: "clamp",
-              easing: [Easing.bezier(0.22, 1, 0.36, 1), Easing.linear, Easing.bezier(0.22, 1, 0.36, 1)],
-            },
-          ),
-          translate: interpolate(frame, [0.2 * fps, 0.9 * fps], ["0px 40px", "0px 0px"], {
+          position: "absolute",
+          top: 800,
+          right: 88,
+          left: 88,
+          background: "linear-gradient(180deg,rgba(255,255,255,.96),rgba(241,239,231,.92))",
+          border: "1px solid rgba(0,62,52,.16)",
+          padding: "28px 34px 0",
+          opacity: interpolate(frame, [0.7 * fps, 1.5 * fps], [0, 1], {
+            extrapolateLeft: "clamp",
+            extrapolateRight: "clamp",
+            easing: Easing.bezier(0.22, 1, 0.36, 1),
+          }),
+          translate: interpolate(frame, [0.7 * fps, 1.5 * fps], ["0px 40px", "0px 0px"], {
             extrapolateLeft: "clamp",
             extrapolateRight: "clamp",
             easing: Easing.bezier(0.22, 1, 0.36, 1),
           }),
         }}
       >
-        اختر دورك
-      </Interactive.Div>
-
-      {models.map((model, i) => (
-        <Interactive.Div
-          key={model.letter}
-          name="Model card"
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            gap: 24,
-            width: "100%",
-            backgroundColor: "#FFFFFF",
-            padding: "30px 30px",
-            marginBottom: 30,
-            opacity: interpolate(
-              frame,
-              [(0.7 + i * 0.35) * fps, (1.5 + i * 0.35) * fps, durationInFrames - 24, durationInFrames],
-              [0, 1, 1, 0],
-              {
-                extrapolateLeft: "clamp",
-                extrapolateRight: "clamp",
-                easing: [Easing.bezier(0.22, 1, 0.36, 1), Easing.linear, Easing.bezier(0.22, 1, 0.36, 1)],
-              },
-            ),
-            translate: interpolate(
-              frame,
-              [(0.7 + i * 0.35) * fps, (1.5 + i * 0.35) * fps],
-              ["60px 0px", "0px 0px"],
-              {
+        {props.specRows.map((row, i) => (
+          <Interactive.Div
+            key={row.labelAr}
+            name="Spec row"
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+              padding: "16px 0",
+              borderBottom: "1px solid rgba(0,62,52,.15)",
+              opacity: interpolate(frame, [(1 + i * 0.13) * fps, (1.6 + i * 0.13) * fps], [0, 1], {
                 extrapolateLeft: "clamp",
                 extrapolateRight: "clamp",
                 easing: Easing.bezier(0.22, 1, 0.36, 1),
-              },
-            ),
-          }}
-        >
-          <Interactive.Div
-            name="Model letter"
-            style={{
-              fontFamily: brandFont,
-              fontSize: 90,
-              fontWeight: 700,
-              lineHeight: 1.4,
-              color: "#FFFFFF",
-              backgroundColor: "#003E34",
-              width: 120,
-              minWidth: 120,
-              flexShrink: 0,
-              textAlign: "center",
+              }),
             }}
           >
-            {model.letter}
+            <Interactive.Div name="Row label" style={{ textAlign: "right" }}>
+              <Interactive.Div
+                name="Label ar"
+                style={{ fontFamily: brandFont, fontSize: 22, fontWeight: 500, lineHeight: 1.4, color: "#00302A" }}
+              >
+                {row.labelAr}
+              </Interactive.Div>
+              <Interactive.Div
+                name="Label en"
+                style={{ fontFamily: brandFont, fontSize: 16, fontWeight: 300, lineHeight: 1.4, color: "rgba(0,48,42,.50)", letterSpacing: 0.6 }}
+              >
+                {row.labelEn}
+              </Interactive.Div>
+            </Interactive.Div>
+            <Interactive.Div
+              name="Row value"
+              style={{ fontFamily: brandFont, fontSize: 28, fontWeight: 600, lineHeight: 1.3, color: "#00221D", textAlign: "left" }}
+            >
+              {row.value}
+            </Interactive.Div>
           </Interactive.Div>
+        ))}
 
+        <Interactive.Div name="Price block" style={{ padding: "28px 0 26px", textAlign: "right" }}>
           <Interactive.Div
-            name="Model info"
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "flex-start",
-              flexGrow: 1,
-              minWidth: 0,
-            }}
+            name="Price label"
+            style={{ fontFamily: brandFont, fontSize: 20, fontWeight: 300, lineHeight: 1.4, color: "rgba(0,48,42,.62)", marginBottom: 8 }}
           >
-            <Interactive.Div
-              name="Model name"
-              style={{
-                fontFamily: brandFont,
-                fontSize: 50,
-                fontWeight: 700,
-                lineHeight: 1.4,
-                color: "#003E34",
-              }}
-            >
-              {model.name}
-            </Interactive.Div>
-            <Interactive.Div
-              name="Model specs"
-              style={{
-                fontFamily: brandFont,
-                fontSize: 30,
-                fontWeight: 400,
-                lineHeight: 1.6,
-                color: "#003E34",
-              }}
-            >
-              {model.rooms} · {model.baths} · {model.note}
-            </Interactive.Div>
-            <Interactive.Div
-              name="Model area"
-              style={{
-                fontFamily: brandFont,
-                fontSize: 40,
-                fontWeight: 600,
-                lineHeight: 1.6,
-                color: "#00B15E",
-              }}
-            >
-              <Counter to={model.area} from={Math.round((1.1 + i * 0.35) * 60)} durationInFrames={45} /> م²
-            </Interactive.Div>
+            الســعــر
           </Interactive.Div>
-
           <Interactive.Div
-            name="Model price"
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "flex-end",
-              flexShrink: 0,
-            }}
+            name="Price row"
+            style={{ display: "flex", flexDirection: "row", alignItems: "baseline", gap: 10 }}
           >
             <Interactive.Div
               name="Price value"
-              style={{
-                fontFamily: brandFont,
-                fontSize: 60,
-                fontWeight: 700,
-                lineHeight: 1.4,
-                color: "#003E34",
-              }}
+              style={{ fontFamily: brandFont, fontSize: 84, fontWeight: 700, lineHeight: 1, color: "#00221D" }}
             >
-              <Counter to={model.price} from={Math.round((1.1 + i * 0.35) * 60)} durationInFrames={55} separator />
+              <Counter to={model.price} from={90} durationInFrames={70} separator />
             </Interactive.Div>
             <Interactive.Div
-              name="Price unit"
-              style={{
-                fontFamily: brandFont,
-                fontSize: 30,
-                fontWeight: 400,
-                lineHeight: 1.6,
-                color: "#003E34",
-              }}
+              name="Price currency"
+              style={{ fontFamily: brandFont, fontSize: 44, fontWeight: 400, lineHeight: 1, color: "#9A6E00" }}
             >
-              ريال
+              {props.currencyGlyph}
             </Interactive.Div>
           </Interactive.Div>
         </Interactive.Div>
-      ))}
 
-      <Interactive.Div
-        name="Finance note"
-        style={{
-          fontFamily: brandFont,
-          fontSize: 30,
-          fontWeight: 300,
-          lineHeight: 1.6,
-          color: "#FFFFFF",
-          marginTop: 10,
-          opacity: interpolate(
-            frame,
-            [2.6 * fps, 3.2 * fps, durationInFrames - 24, durationInFrames],
-            [0, 1, 1, 0],
-            {
+        <Interactive.Div
+          name="CTA bar"
+          style={{
+            margin: "0 -34px",
+            backgroundColor: "#FFB900",
+            color: "#00221D",
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: 14,
+            padding: "22px 0",
+            fontFamily: brandFont,
+            fontSize: 28,
+            fontWeight: 600,
+            lineHeight: 1.3,
+            opacity: interpolate(frame, [2 * fps, 2.7 * fps], [0, 1], {
               extrapolateLeft: "clamp",
               extrapolateRight: "clamp",
-              easing: [Easing.bezier(0.22, 1, 0.36, 1), Easing.linear, Easing.bezier(0.22, 1, 0.36, 1)],
-            },
-          ),
-        }}
-      >
-        الأسعار للبيع المباشر وتقبل التمويل العقاري.
+              easing: Easing.bezier(0.22, 1, 0.36, 1),
+            }),
+          }}
+        >
+          <Img name="CTA icon" src={staticFile("icons/warranty-green.svg")} style={{ height: 28 }} />
+          {props.ctaLine}
+        </Interactive.Div>
       </Interactive.Div>
-    </AbsoluteFill>
+    </PosterFrame>
   );
 };

@@ -9,22 +9,19 @@ import {
   useVideoConfig,
 } from "remotion";
 import { brandFont } from "../fonts";
+import { Reveal } from "../Reveal";
 import type { Project } from "../schema";
 
-/**
- * الغلاف الختامي — إلزامي لكل مشروع (الدليل ص 29)، ومبني على قالب الآوترو (ص 59).
- * `logo` فارغ = مساحة محجوزة لشعار المشروع. ضع الملف في public/ واكتب اسمه في الحقل.
- */
+/** الغلاف الختامي — إلزامي لكل مشروع (الدليل ص 29)، على قالب الآوترو ص 59. */
 export const Outro: React.FC<Project> = ({
   projectName,
   district,
   city,
-  ctaLine,
+  latinName,
   phonePrimary,
   phoneSecondary,
   website,
   adLicence,
-  logo,
 }) => {
   const frame = useCurrentFrame();
   const { fps, durationInFrames } = useVideoConfig();
@@ -37,221 +34,136 @@ export const Outro: React.FC<Project> = ({
         direction: "rtl",
         display: "flex",
         flexDirection: "column",
-        justifyContent: "center",
         alignItems: "center",
-        padding: "250px 80px 320px",
+        justifyContent: "center",
+        padding: "270px 88px 330px",
       }}
     >
-      {logo === "" ? (
-        <Interactive.Div
-          name="Logo slot"
-          style={{
-            width: 420,
-            height: 180,
-            border: "3px dashed #FFB900",
-            color: "#FFB900",
-            fontFamily: brandFont,
-            fontSize: 30,
-            fontWeight: 400,
-            lineHeight: 1.6,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            textAlign: "center",
-            marginBottom: 70,
-            opacity: interpolate(frame, [0, 0.7 * fps], [0, 1], {
-              extrapolateLeft: "clamp",
-              extrapolateRight: "clamp",
-              easing: Easing.bezier(0.22, 1, 0.36, 1),
-            }),
-          }}
-        >
-          مكان شعار إحياء الأملاك
-        </Interactive.Div>
-      ) : (
-        <Img
-          name="Project logo"
-          src={staticFile(logo)}
-          style={{
-            width: 420,
-            marginBottom: 70,
-            opacity: interpolate(frame, [0, 0.7 * fps], [0, 1], {
-              extrapolateLeft: "clamp",
-              extrapolateRight: "clamp",
-              easing: Easing.bezier(0.22, 1, 0.36, 1),
-            }),
-          }}
-        />
-      )}
-
-      <Interactive.Div
-        name="Project name"
+      <Img
+        name="Ehya logo"
+        src={staticFile("ehya-amlak-white.svg")}
         style={{
-          fontFamily: brandFont,
-          fontSize: 100,
-          fontWeight: 700,
-          lineHeight: 1.4,
-          color: "#FFFFFF",
-          opacity: interpolate(frame, [0.3 * fps, 1 * fps], [0, 1], {
-            extrapolateLeft: "clamp",
-            extrapolateRight: "clamp",
-            easing: Easing.bezier(0.22, 1, 0.36, 1),
-          }),
-          translate: interpolate(frame, [0.3 * fps, 1 * fps], ["0px 40px", "0px 0px"], {
-            extrapolateLeft: "clamp",
-            extrapolateRight: "clamp",
-            easing: Easing.bezier(0.22, 1, 0.36, 1),
-          }),
-        }}
-      >
-        {projectName}
-      </Interactive.Div>
-
-      <Interactive.Div
-        name="Project location"
-        style={{
-          fontFamily: brandFont,
-          fontSize: 40,
-          fontWeight: 400,
-          lineHeight: 1.6,
-          color: "#FFFFFF",
+          width: 420,
           marginBottom: 60,
-          opacity: interpolate(frame, [0.5 * fps, 1.2 * fps], [0, 1], {
-            extrapolateLeft: "clamp",
-            extrapolateRight: "clamp",
-            easing: Easing.bezier(0.22, 1, 0.36, 1),
-          }),
-          translate: interpolate(frame, [0.5 * fps, 1.2 * fps], ["0px 40px", "0px 0px"], {
+          opacity: interpolate(frame, [0, 0.8 * fps], [0, 1], {
             extrapolateLeft: "clamp",
             extrapolateRight: "clamp",
             easing: Easing.bezier(0.22, 1, 0.36, 1),
           }),
         }}
-      >
-        {district} — {city}
+      />
+
+      <Interactive.Div name="Name slot" style={{ width: "100%", textAlign: "center" }}>
+        <Reveal name="Name reveal" start={0.3 * fps} end={1.3 * fps} curtain="#003E34">
+          <Interactive.Div
+            name="Project name"
+            style={{ fontFamily: brandFont, fontSize: 100, fontWeight: 700, lineHeight: 1.2, color: "#FFFFFF" }}
+          >
+            {projectName}
+          </Interactive.Div>
+        </Reveal>
+        <Reveal name="Place reveal" start={0.6 * fps} end={1.6 * fps} curtain="#003E34">
+          <Interactive.Div
+            name="Project place"
+            style={{ fontFamily: brandFont, fontSize: 40, fontWeight: 300, lineHeight: 1.5, color: "#E8C77A" }}
+          >
+            {district} — {city} · {latinName}
+          </Interactive.Div>
+        </Reveal>
       </Interactive.Div>
 
       <Interactive.Div
-        name="CTA line"
+        name="CTA bar"
         style={{
-          fontFamily: brandFont,
-          fontSize: 60,
-          fontWeight: 700,
-          lineHeight: 1.4,
-          color: "#003E34",
+          marginTop: 60,
           backgroundColor: "#FFB900",
-          padding: "10px 50px",
-          marginBottom: 40,
-          opacity: interpolate(frame, [0.8 * fps, 1.5 * fps], [0, 1], {
+          color: "#00221D",
+          fontFamily: brandFont,
+          fontSize: 50,
+          fontWeight: 600,
+          lineHeight: 1.4,
+          padding: "18px 70px",
+          opacity: interpolate(frame, [1 * fps, 1.7 * fps], [0, 1], {
             extrapolateLeft: "clamp",
             extrapolateRight: "clamp",
             easing: Easing.bezier(0.22, 1, 0.36, 1),
           }),
-          translate: interpolate(frame, [0.8 * fps, 1.5 * fps], ["0px 40px", "0px 0px"], {
+          translate: interpolate(frame, [1 * fps, 1.7 * fps], ["0px 30px", "0px 0px"], {
             extrapolateLeft: "clamp",
             extrapolateRight: "clamp",
             easing: Easing.bezier(0.22, 1, 0.36, 1),
           }),
         }}
       >
-        {ctaLine}
+        احجــز وحدتــك الآن
       </Interactive.Div>
 
       <Interactive.Div
-        name="Phone primary"
+        name="Phones"
         style={{
-          fontFamily: brandFont,
-          fontSize: 70,
-          fontWeight: 700,
-          lineHeight: 1.4,
-          color: "#FFFFFF",
+          marginTop: 60,
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          gap: 30,
           direction: "ltr",
-          opacity: interpolate(frame, [1.1 * fps, 1.8 * fps], [0, 1], {
-            extrapolateLeft: "clamp",
-            extrapolateRight: "clamp",
-            easing: Easing.bezier(0.22, 1, 0.36, 1),
-          }),
-          translate: interpolate(frame, [1.1 * fps, 1.8 * fps], ["0px 40px", "0px 0px"], {
-            extrapolateLeft: "clamp",
-            extrapolateRight: "clamp",
-            easing: Easing.bezier(0.22, 1, 0.36, 1),
-          }),
-        }}
-      >
-        {phonePrimary}
-      </Interactive.Div>
-
-      <Interactive.Div
-        name="Phone secondary"
-        style={{
-          fontFamily: brandFont,
-          fontSize: 70,
-          fontWeight: 700,
-          lineHeight: 1.4,
-          color: "#FFFFFF",
-          direction: "ltr",
-          marginBottom: 50,
           opacity: interpolate(frame, [1.3 * fps, 2 * fps], [0, 1], {
             extrapolateLeft: "clamp",
             extrapolateRight: "clamp",
             easing: Easing.bezier(0.22, 1, 0.36, 1),
           }),
-          translate: interpolate(frame, [1.3 * fps, 2 * fps], ["0px 40px", "0px 0px"], {
-            extrapolateLeft: "clamp",
-            extrapolateRight: "clamp",
-            easing: Easing.bezier(0.22, 1, 0.36, 1),
-          }),
         }}
       >
-        {phoneSecondary}
+        <Img name="Contact icon" src={staticFile("icons/contact-yellow.svg")} style={{ height: 44 }} />
+        <Interactive.Div
+          name="Phone one"
+          style={{ fontFamily: brandFont, fontSize: 52, fontWeight: 600, letterSpacing: 1.5, color: "#FFFFFF" }}
+        >
+          {phonePrimary}
+        </Interactive.Div>
+        <Interactive.Div name="Sep" style={{ width: 1, height: 40, backgroundColor: "rgba(237,235,228,.35)" }} />
+        <Interactive.Div
+          name="Phone two"
+          style={{ fontFamily: brandFont, fontSize: 52, fontWeight: 600, letterSpacing: 1.5, color: "#FFFFFF" }}
+        >
+          {phoneSecondary}
+        </Interactive.Div>
       </Interactive.Div>
 
       <Interactive.Div
-        name="Web line"
-        style={{
-          fontFamily: brandFont,
-          fontSize: 40,
-          fontWeight: 500,
-          lineHeight: 1.6,
-          color: "#FFB900",
-          direction: "ltr",
-          opacity: interpolate(frame, [1.6 * fps, 2.3 * fps], [0, 1], {
-            extrapolateLeft: "clamp",
-            extrapolateRight: "clamp",
-            easing: Easing.bezier(0.22, 1, 0.36, 1),
-          }),
-        }}
-      >
-        {website}
-      </Interactive.Div>
-
-      <Interactive.Div
-        name="Ad licence"
+        name="Meta"
         style={{
           position: "absolute",
-          bottom: 300,
-          fontFamily: brandFont,
-          fontSize: 30,
-          fontWeight: 300,
-          lineHeight: 1.6,
-          color: "#FFFFFF",
-          opacity: interpolate(frame, [2 * fps, 2.6 * fps], [0, 1], {
+          bottom: 330,
+          textAlign: "center",
+          opacity: interpolate(frame, [1.7 * fps, 2.4 * fps], [0, 1], {
             extrapolateLeft: "clamp",
             extrapolateRight: "clamp",
             easing: Easing.bezier(0.22, 1, 0.36, 1),
           }),
         }}
       >
-        {adLicence}
+        <Interactive.Div
+          name="Website"
+          style={{ fontFamily: brandFont, fontSize: 30, fontWeight: 500, letterSpacing: 2.5, color: "#EDEBE4" }}
+        >
+          {website}
+        </Interactive.Div>
+        <Interactive.Div
+          name="Licence"
+          style={{ fontFamily: brandFont, fontSize: 20, fontWeight: 300, color: "rgba(237,235,228,.45)", marginTop: 6 }}
+        >
+          {adLicence}
+        </Interactive.Div>
       </Interactive.Div>
 
       <Interactive.Div
-        name="Fade to black"
+        name="Fade out"
         style={{
           position: "absolute",
           inset: 0,
-          backgroundColor: "#000000",
-          opacity: interpolate(frame, [durationInFrames - 40, durationInFrames], [0, 1], {
+          backgroundColor: "#00221D",
+          opacity: interpolate(frame, [durationInFrames - 30, durationInFrames], [0, 1], {
             extrapolateLeft: "clamp",
             extrapolateRight: "clamp",
             easing: Easing.bezier(0.4, 0, 1, 1),

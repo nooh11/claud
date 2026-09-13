@@ -10,49 +10,50 @@ import { Outro } from "./scenes/Outro";
 import { Warranty } from "./scenes/Warranty";
 
 /**
- * 2200 فريم مجموع المشاهد − (5 انتقالات × 20) = 2100 فريم = 35 ثانية عند 60 فريم/ث.
+ * 1780 فريم مجموع المشاهد − (5 انتقالات × 20) = 1680 فريم = 28 ثانية عند 60 فريم/ث.
+ * المدة مضبوطة على إيقاع الريلز: الهوك في أول ثلاث ثوانٍ، والباقي قصير يرفع نسبة الإكمال.
  * معدل الإطارات 60 التزامًا بالدليل ص 29: «لا يقل عن 59 فريم».
  */
 export const SahmAlInjaz: React.FC<Project> = (props) => {
   return (
     <AbsoluteFill name="Sahm Al-Injaz ad" style={{ backgroundColor: "#003E34" }}>
       <TransitionSeries>
-        <TransitionSeries.Sequence durationInFrames={320} name="1 · الغلاف">
+        <TransitionSeries.Sequence durationInFrames={340} name="1 · الهوك">
           <Hook {...props} />
         </TransitionSeries.Sequence>
         <TransitionSeries.Transition
           presentation={fade()}
           timing={linearTiming({ durationInFrames: 20 })}
         />
-        <TransitionSeries.Sequence durationInFrames={340} name="2 · الموقع">
+        <TransitionSeries.Sequence durationInFrames={300} name="2 · الموقع">
           <Location {...props} />
         </TransitionSeries.Sequence>
         <TransitionSeries.Transition
           presentation={fade()}
           timing={linearTiming({ durationInFrames: 20 })}
         />
-        <TransitionSeries.Sequence durationInFrames={340} name="3 · جولة المشروع">
+        <TransitionSeries.Sequence durationInFrames={300} name="3 · الجولة">
           <Interior {...props} />
         </TransitionSeries.Sequence>
         <TransitionSeries.Transition
           presentation={fade()}
           timing={linearTiming({ durationInFrames: 20 })}
         />
-        <TransitionSeries.Sequence durationInFrames={560} name="4 · النماذج والأسعار">
+        <TransitionSeries.Sequence durationInFrames={380} name="4 · النماذج والسعر">
           <Models {...props} />
         </TransitionSeries.Sequence>
         <TransitionSeries.Transition
           presentation={fade()}
           timing={linearTiming({ durationInFrames: 20 })}
         />
-        <TransitionSeries.Sequence durationInFrames={300} name="5 · الضمانات">
+        <TransitionSeries.Sequence durationInFrames={260} name="5 · الضمانات">
           <Warranty {...props} />
         </TransitionSeries.Sequence>
         <TransitionSeries.Transition
           presentation={fade()}
           timing={linearTiming({ durationInFrames: 20 })}
         />
-        <TransitionSeries.Sequence durationInFrames={340} name="6 · الغلاف الختامي">
+        <TransitionSeries.Sequence durationInFrames={200} name="6 · الغلاف الختامي">
           <Outro {...props} />
         </TransitionSeries.Sequence>
       </TransitionSeries>
