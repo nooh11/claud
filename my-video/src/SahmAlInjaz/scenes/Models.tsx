@@ -87,10 +87,10 @@ export const Models: React.FC<Project> = ({ models }) => {
             display: "flex",
             flexDirection: "row",
             alignItems: "center",
-            gap: 30,
+            gap: 24,
             width: "100%",
             backgroundColor: "#FFFFFF",
-            padding: "30px 40px",
+            padding: "30px 30px",
             marginBottom: 30,
             opacity: interpolate(
               frame,
@@ -123,8 +123,9 @@ export const Models: React.FC<Project> = ({ models }) => {
               lineHeight: 1.4,
               color: "#FFFFFF",
               backgroundColor: "#003E34",
-              width: 130,
-              minWidth: 130,
+              width: 120,
+              minWidth: 120,
+              flexShrink: 0,
               textAlign: "center",
             }}
           >
@@ -138,6 +139,7 @@ export const Models: React.FC<Project> = ({ models }) => {
               flexDirection: "column",
               alignItems: "flex-start",
               flexGrow: 1,
+              minWidth: 0,
             }}
           >
             <Interactive.Div
@@ -160,7 +162,6 @@ export const Models: React.FC<Project> = ({ models }) => {
                 fontWeight: 400,
                 lineHeight: 1.6,
                 color: "#003E34",
-                whiteSpace: "nowrap",
               }}
             >
               {model.rooms} · {model.baths} · {model.note}
@@ -185,6 +186,7 @@ export const Models: React.FC<Project> = ({ models }) => {
               display: "flex",
               flexDirection: "column",
               alignItems: "flex-end",
+              flexShrink: 0,
             }}
           >
             <Interactive.Div

@@ -44,7 +44,7 @@ export const RemotionRoot: React.FC = () => {
               price: 630000,
               rooms: "3 غرف نوم",
               baths: "4 دورات مياه",
-              note: "بلكونة",
+              note: "بلكونة مطلّة",
             },
             {
               letter: "A",
@@ -53,7 +53,7 @@ export const RemotionRoot: React.FC = () => {
               price: 640000,
               rooms: "3 غرف نوم",
               baths: "3 دورات مياه",
-              note: "مدخل مستقل",
+              note: "مدخل خاص",
             },
             {
               letter: "C",
@@ -62,7 +62,7 @@ export const RemotionRoot: React.FC = () => {
               price: 730000,
               rooms: "3 غرف نوم",
               baths: "3 دورات مياه",
-              note: "3 أسطح خاصة",
+              note: "3 أسطح",
             },
           ],
           warranties: [
@@ -74,7 +74,6 @@ export const RemotionRoot: React.FC = () => {
           phonePrimary: "0541882299",
           phoneSecondary: "0534977299",
           website: "EHYA.SA",
-          unifiedNumber: "920033936",
           adLicence: "رقم الإعلان: 7201112278",
           logo: "ehya-amlak-white.svg",
         }}

@@ -23,7 +23,6 @@ export const Outro: React.FC<Project> = ({
   phonePrimary,
   phoneSecondary,
   website,
-  unifiedNumber,
   adLicence,
   logo,
 }) => {
@@ -223,7 +222,7 @@ export const Outro: React.FC<Project> = ({
           }),
         }}
       >
-        {website} | {unifiedNumber}
+        {website}
       </Interactive.Div>
 
       <Interactive.Div

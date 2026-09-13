@@ -39,7 +39,6 @@ export const projectSchema = z.object({
   phonePrimary: z.string(),
   phoneSecondary: z.string(),
   website: z.string(),
-  unifiedNumber: z.string(),
   adLicence: z.string(),
   logo: z.string(),
 });
