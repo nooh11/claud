@@ -1,39 +1,35 @@
 import { Easing, Interactive, interpolate, useCurrentFrame } from "remotion";
 
 /**
- * كشف بستارة: النص ثابت وستارة بلون الخلفية تنزاح من اليمين لليسار فتكشفه تدريجيًا.
- * الاتجاه موحّد مع قاعدة الدليل ص 30، والحركة ناعمة بلا ارتداد.
+ * كشف بلا أي لون فوق الصورة: النص يصعد داخل حدوده وحدها،
+ * والقصّ يتم بحدود السطر نفسه — لا ستارة ولا مستطيل ملوّن.
  */
 export const Reveal: React.FC<{
   readonly children: React.ReactNode;
   readonly start: number;
   readonly end: number;
-  readonly curtain: string;
   readonly name: string;
-}> = ({ children, start, end, curtain, name }) => {
+}> = ({ children, start, end, name }) => {
   const frame = useCurrentFrame();
   return (
-    <Interactive.Div
-      name={name}
-      style={{ position: "relative", overflow: "hidden", width: "100%" }}
-    >
-      {children}
+    <Interactive.Div name={name} style={{ overflow: "hidden", paddingBottom: 6 }}>
       <Interactive.Div
-        name="Curtain"
+        name="Rise"
         style={{
-          position: "absolute",
-          top: 0,
-          right: 0,
-          bottom: 0,
-          width: 1080,
-          backgroundColor: curtain,
-          translate: interpolate(frame, [start, end], ["0px 0px", "-1120px 0px"], {
+          translate: interpolate(frame, [start, end], ["0px 130px", "0px 0px"], {
             extrapolateLeft: "clamp",
             extrapolateRight: "clamp",
-            easing: Easing.bezier(0.76, 0, 0.24, 1),
+            easing: Easing.bezier(0.16, 1, 0.3, 1),
+          }),
+          opacity: interpolate(frame, [start, start + 8], [0, 1], {
+            extrapolateLeft: "clamp",
+            extrapolateRight: "clamp",
+            easing: Easing.linear,
           }),
         }}
-      />
+      >
+        {children}
+      </Interactive.Div>
     </Interactive.Div>
   );
 };

@@ -69,9 +69,8 @@ export const PosterFrame: React.FC<{
           position: "absolute",
           inset: 0,
           background:
-            "linear-gradient(180deg,rgba(0,34,29,.94) 0%,rgba(0,34,29,.88) 19%,rgba(0,50,42,.55) 30%,rgba(0,62,52,.16) 39%,rgba(0,62,52,0) 46%)," +
-            "linear-gradient(0deg,#001411 0%,rgba(0,20,17,.88) 12%,rgba(0,20,17,.46) 22%,rgba(0,20,17,0) 32%)," +
-            "linear-gradient(0deg,rgba(0,34,29,.20),rgba(0,34,29,.20))",
+            "linear-gradient(180deg,rgba(0,34,29,.86) 0%,rgba(0,34,29,.58) 13%,rgba(0,50,42,.22) 21%,rgba(0,62,52,0) 29%)," +
+            "linear-gradient(0deg,rgba(0,20,17,.92) 0%,rgba(0,20,17,.58) 9%,rgba(0,20,17,.18) 16%,rgba(0,20,17,0) 24%)",
         }}
       />
 
@@ -202,14 +201,14 @@ export const PosterFrame: React.FC<{
           <Img name="Contact icon" src={staticFile("icons/contact-yellow.svg")} style={{ height: 30 }} />
           <Interactive.Div
             name="Phone one"
-            style={{ fontFamily: brandFont, fontSize: 32, fontWeight: 600, letterSpacing: 1.5, color: "#FFFFFF" }}
+            style={{ fontFamily: brandFont, fontSize: 32, fontWeight: 600, letterSpacing: 1.5, color: "#FFFFFF", textShadow: "0 2px 18px rgba(0,20,17,.9), 0 0 8px rgba(0,20,17,.75)" }}
           >
             {phonePrimary}
           </Interactive.Div>
           <Interactive.Div name="Sep" style={{ width: 1, height: 26, backgroundColor: "rgba(237,235,228,.20)" }} />
           <Interactive.Div
             name="Phone two"
-            style={{ fontFamily: brandFont, fontSize: 32, fontWeight: 600, letterSpacing: 1.5, color: "#FFFFFF" }}
+            style={{ fontFamily: brandFont, fontSize: 32, fontWeight: 600, letterSpacing: 1.5, color: "#FFFFFF", textShadow: "0 2px 18px rgba(0,20,17,.9), 0 0 8px rgba(0,20,17,.75)" }}
           >
             {phoneSecondary}
           </Interactive.Div>

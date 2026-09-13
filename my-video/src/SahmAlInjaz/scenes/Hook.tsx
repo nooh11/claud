@@ -1,33 +1,28 @@
-import { Easing, Img, Interactive, interpolate, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
-import { Counter } from "../Counter";
+import { Img, Interactive, staticFile, useVideoConfig } from "remotion";
 import { brandFont } from "../fonts";
 import { PosterFrame } from "../PosterFrame";
 import { Reveal } from "../Reveal";
 import type { Project } from "../schema";
 
-/** المشهد الأول — الهوك: العنوان والسعر يظهران خلال أول ثلاث ثوانٍ. */
+/** الهوك — العنوان يكتمل قبل الثانية الثالثة، والعمارة مكشوفة تحته. */
 export const Hook: React.FC<Project> = (props) => {
-  const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
-
   return (
-    <PosterFrame
-      photo={props.photo}
-      projectName={props.projectName}
-      district={props.district}
-      city={props.city}
-      latinName={props.latinName}
-      latinTag={props.latinTag}
-      phonePrimary={props.phonePrimary}
-      phoneSecondary={props.phoneSecondary}
-      website={props.website}
-      adLicence={props.adLicence}
-    >
+    <PosterFrame {...props} photo={props.photoStreet}>
       <Interactive.Div
-        name="Head"
-        style={{ position: "absolute", top: 430, right: 88, left: 88, textAlign: "center" }}
-      >
-        <Reveal name="Kicker reveal" start={0} end={0.8 * fps} curtain="#003E34">
+        name="Head scrim"
+        style={{
+          position: "absolute",
+          top: 300,
+          right: -88,
+          left: -88,
+          height: 620,
+          background:
+            "radial-gradient(ellipse 74% 60% at 50% 46%,rgba(0,20,17,.80) 0%,rgba(0,20,17,.52) 42%,rgba(0,20,17,.20) 66%,rgba(0,20,17,0) 82%)",
+        }}
+      />
+      <Interactive.Div name="Head" style={{ position: "absolute", top: 420, right: 88, left: 88, textAlign: "center" }}>
+        <Reveal name="Kicker reveal" start={0} end={0.7 * fps}>
           <Interactive.Div
             name="Kicker"
             style={{
@@ -36,6 +31,7 @@ export const Hook: React.FC<Project> = (props) => {
               alignItems: "center",
               gap: 12,
               border: "1px solid rgba(255,185,0,.55)",
+              backgroundColor: "rgba(0,20,17,.55)",
               color: "#FFB900",
               fontFamily: brandFont,
               fontSize: 20,
@@ -49,30 +45,24 @@ export const Hook: React.FC<Project> = (props) => {
             {props.statusTag}
           </Interactive.Div>
         </Reveal>
-
-        <Reveal name="T1 reveal" start={0.2 * fps} end={1.2 * fps} curtain="#003E34">
+        <Reveal name="T1 reveal" start={0.2 * fps} end={1.1 * fps}>
           <Interactive.Div
             name="Headline one"
-            style={{ fontFamily: brandFont, fontSize: 110, fontWeight: 700, lineHeight: 1.14, color: "#FFFFFF" }}
+            style={{ fontFamily: brandFont, fontSize: 110, fontWeight: 700, lineHeight: 1.16, color: "#FFFFFF", textShadow: "0 2px 30px rgba(0,20,17,.92), 0 0 12px rgba(0,20,17,.85), 0 1px 2px rgba(0,20,17,.6)" }}
           >
             {props.hookLineOne}
           </Interactive.Div>
         </Reveal>
-
-        <Reveal name="T2 reveal" start={0.5 * fps} end={1.5 * fps} curtain="#003E34">
+        <Reveal name="T2 reveal" start={0.45 * fps} end={1.35 * fps}>
           <Interactive.Div
             name="Headline two"
-            style={{ fontFamily: brandFont, fontSize: 60, fontWeight: 400, lineHeight: 1.4, color: "#E8C77A" }}
+            style={{ fontFamily: brandFont, fontSize: 60, fontWeight: 400, lineHeight: 1.45, color: "#E8C77A", textShadow: "0 2px 30px rgba(0,20,17,.92), 0 0 12px rgba(0,20,17,.85), 0 1px 2px rgba(0,20,17,.6)" }}
           >
             {props.hookLineTwo}
           </Interactive.Div>
         </Reveal>
-
-        <Reveal name="Loc reveal" start={0.9 * fps} end={1.9 * fps} curtain="#003E34">
-          <Interactive.Div
-            name="Location pill wrap"
-            style={{ marginTop: 34 }}
-          >
+        <Reveal name="Loc reveal" start={0.8 * fps} end={1.7 * fps}>
+          <Interactive.Div name="Loc wrap" style={{ marginTop: 30 }}>
             <Interactive.Div
               name="Location pill"
               style={{
@@ -80,14 +70,14 @@ export const Hook: React.FC<Project> = (props) => {
                 flexDirection: "row",
                 alignItems: "center",
                 gap: 12,
-                backgroundColor: "rgba(0,20,17,.28)",
-                border: "1px solid rgba(237,235,228,.20)",
+                border: "1px solid rgba(237,235,228,.35)",
+                backgroundColor: "rgba(0,20,17,.45)",
                 padding: "11px 26px",
                 fontFamily: brandFont,
                 fontSize: 24,
                 fontWeight: 400,
                 lineHeight: 1.4,
-                color: "#EDEBE4",
+                color: "#FFFFFF",
               }}
             >
               <Img name="Pin icon" src={staticFile("icons/location-yellow.svg")} style={{ height: 24 }} />
@@ -96,79 +86,6 @@ export const Hook: React.FC<Project> = (props) => {
           </Interactive.Div>
         </Reveal>
       </Interactive.Div>
-
-      <Interactive.Div
-        name="Stats"
-        style={{
-          position: "absolute",
-          top: 1330,
-          right: 0,
-          left: 0,
-          padding: "62px 0",
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "center",
-          background:
-            "radial-gradient(ellipse 60% 58% at 50% 50%,rgba(0,20,17,.88) 0%,rgba(0,20,17,.66) 42%,rgba(0,20,17,.28) 72%,rgba(0,20,17,0) 100%)",
-          opacity: interpolate(frame, [1.2 * fps, 2 * fps], [0, 1], {
-            extrapolateLeft: "clamp",
-            extrapolateRight: "clamp",
-            easing: Easing.bezier(0.22, 1, 0.36, 1),
-          }),
-          translate: interpolate(frame, [1.2 * fps, 2 * fps], ["0px 30px", "0px 0px"], {
-            extrapolateLeft: "clamp",
-            extrapolateRight: "clamp",
-            easing: Easing.bezier(0.22, 1, 0.36, 1),
-          }),
-        }}
-      >
-        <Interactive.Div name="Stat price" style={{ padding: "0 46px", textAlign: "center" }}>
-          <Interactive.Div
-            name="Stat price value"
-            style={{ fontFamily: brandFont, fontSize: 60, fontWeight: 600, lineHeight: 1, color: "#FFFFFF" }}
-          >
-            <Counter to={props.priceThousands} from={80} durationInFrames={60} />
-            <Interactive.Div
-              name="Stat price unit"
-              style={{ display: "inline", fontFamily: brandFont, fontSize: 24, fontWeight: 400, color: "#FFB900" }}
-            >
-              {" "}
-              ألف {props.currencyGlyph}
-            </Interactive.Div>
-          </Interactive.Div>
-          <Interactive.Div
-            name="Stat price label"
-            style={{ fontFamily: brandFont, fontSize: 20, fontWeight: 300, lineHeight: 1.4, color: "rgba(237,235,228,.72)", marginTop: 11 }}
-          >
-            تبدأ الأسعار من
-          </Interactive.Div>
-        </Interactive.Div>
-
-        <Interactive.Div name="Stat divider" style={{ width: 1, backgroundColor: "rgba(237,235,228,.20)", margin: "8px 0" }} />
-
-        <Interactive.Div name="Stat warranty" style={{ padding: "0 46px", textAlign: "center" }}>
-          <Interactive.Div
-            name="Stat warranty value"
-            style={{ fontFamily: brandFont, fontSize: 60, fontWeight: 600, lineHeight: 1, color: "#FFFFFF" }}
-          >
-            <Counter to={10} from={100} durationInFrames={50} />
-            <Interactive.Div
-              name="Stat warranty unit"
-              style={{ display: "inline", fontFamily: brandFont, fontSize: 24, fontWeight: 400, color: "#FFB900" }}
-            >
-              {" "}
-              سنوات
-            </Interactive.Div>
-          </Interactive.Div>
-          <Interactive.Div
-            name="Stat warranty label"
-            style={{ fontFamily: brandFont, fontSize: 20, fontWeight: 300, lineHeight: 1.4, color: "rgba(237,235,228,.72)", marginTop: 11 }}
-          >
-            تأمين على العيوب
-          </Interactive.Div>
-        </Interactive.Div>
-      </Interactive.Div>
-
     </PosterFrame>
   );
 };

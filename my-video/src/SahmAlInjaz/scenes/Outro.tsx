@@ -17,7 +17,6 @@ export const Outro: React.FC<Project> = ({
   projectName,
   district,
   city,
-  latinName,
   phonePrimary,
   phoneSecondary,
   website,
@@ -54,7 +53,7 @@ export const Outro: React.FC<Project> = ({
       />
 
       <Interactive.Div name="Name slot" style={{ width: "100%", textAlign: "center" }}>
-        <Reveal name="Name reveal" start={0.3 * fps} end={1.3 * fps} curtain="#003E34">
+        <Reveal name="Name reveal" start={0.3 * fps} end={1.3 * fps}>
           <Interactive.Div
             name="Project name"
             style={{ fontFamily: brandFont, fontSize: 100, fontWeight: 700, lineHeight: 1.2, color: "#FFFFFF" }}
@@ -62,12 +61,12 @@ export const Outro: React.FC<Project> = ({
             {projectName}
           </Interactive.Div>
         </Reveal>
-        <Reveal name="Place reveal" start={0.6 * fps} end={1.6 * fps} curtain="#003E34">
+        <Reveal name="Place reveal" start={0.6 * fps} end={1.6 * fps}>
           <Interactive.Div
             name="Project place"
             style={{ fontFamily: brandFont, fontSize: 40, fontWeight: 300, lineHeight: 1.5, color: "#E8C77A" }}
           >
-            {district} — {city} · {latinName}
+            {district} — {city}
           </Interactive.Div>
         </Reveal>
       </Interactive.Div>

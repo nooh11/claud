@@ -5,10 +5,10 @@ import { PosterFrame } from "../PosterFrame";
 import { Reveal } from "../Reveal";
 import type { Project } from "../schema";
 
-export const Warranty: React.FC<Project> = (props) => {
+export const Nearby: React.FC<Project> = (props) => {
   const { fps } = useVideoConfig();
   return (
-    <PosterFrame photo={props.tourShots[3]} {...props} latinTag="Written Warranty">
+    <PosterFrame photo={props.photoEntrance} {...props} latinTag="Minutes Away">
       <Interactive.Div
         name="Head scrim"
         style={{
@@ -27,7 +27,7 @@ export const Warranty: React.FC<Project> = (props) => {
             name="Headline one"
             style={{ fontFamily: brandFont, fontSize: 110, fontWeight: 700, lineHeight: 1.16, color: "#FFFFFF", textShadow: "0 2px 30px rgba(0,20,17,.92), 0 0 12px rgba(0,20,17,.85), 0 1px 2px rgba(0,20,17,.6)" }}
           >
-            ضمانــات مكتوبــة
+            كل وجهاتــك حولــك
           </Interactive.Div>
         </Reveal>
         <Reveal name="T2 reveal" start={0.25 * fps} end={1.15 * fps}>
@@ -35,15 +35,15 @@ export const Warranty: React.FC<Project> = (props) => {
             name="Headline two"
             style={{ fontFamily: brandFont, fontSize: 60, fontWeight: 400, lineHeight: 1.45, color: "#E8C77A", textShadow: "0 2px 30px rgba(0,20,17,.92), 0 0 12px rgba(0,20,17,.85), 0 1px 2px rgba(0,20,17,.6)" }}
           >
-            لا وعــود شفهيــة
+            في دائــرة ربــع ساعــة
           </Interactive.Div>
         </Reveal>
       </Interactive.Div>
 
       <InfoList
-        top={1180}
+        top={1120}
         startAt={40}
-        rows={props.warranties.map((item) => ({ label: item.label, value: "سنة", count: item.years }))}
+        rows={props.places.map((place) => ({ label: place.name, value: "دقائق", count: place.minutes }))}
       />
     </PosterFrame>
   );
