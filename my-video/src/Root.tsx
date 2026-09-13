@@ -16,12 +16,14 @@ export const RemotionRoot: React.FC = () => {
         schema={projectSchema}
         defaultProps={{
           projectName: "سهم الإنجاز",
-          statusTag: "جاهز للتسليم",
-          headline: "شقق تمليك جاهزة للسكن",
+          statusTag: "جاهزة للسكن الفوري",
+          headline: "شقق تمليك جاهزة",
           subline: "بدأ البيع",
           district: "حي الشعلة",
           city: "الدمام",
           photo: "project-exterior.jpg",
+          coverTall: "cover-tall.jpg",
+          logoGreen: "ehya-amlak-green.svg",
           galleryOne: "exterior-entrance.jpg",
           galleryTwo: "interior-lobby.jpg",
           galleryThree: "interior-living.jpg",
