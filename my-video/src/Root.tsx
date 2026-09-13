@@ -9,7 +9,7 @@ export const RemotionRoot: React.FC = () => {
       <Composition
         id="SahmAlInjaz"
         component={SahmAlInjaz}
-        durationInFrames={1800}
+        durationInFrames={2100}
         fps={60}
         width={1080}
         height={1920}
@@ -21,7 +21,15 @@ export const RemotionRoot: React.FC = () => {
           subline: "بدأ البيع",
           district: "حي الشعلة",
           city: "الدمام",
-          photo: "property-placeholder.svg",
+          photo: "project-exterior.jpg",
+          galleryOne: "exterior-entrance.jpg",
+          galleryTwo: "interior-lobby.jpg",
+          galleryThree: "interior-living.jpg",
+          priceFrom: 630000,
+          currencyGlyph: "﷼",
+          areaMax: 201,
+          modelsCount: 3,
+          roomsCount: 3,
           places: [
             { name: "مسجد الحي", minutes: 3 },
             { name: "إثراء", minutes: 5 },
@@ -62,13 +70,13 @@ export const RemotionRoot: React.FC = () => {
             { years: 15, label: "مواسير الصرف والتغذية" },
             { years: 10, label: "المصعد والعزل" },
           ],
-          ctaLine: "احجز بيتك الآن",
+          ctaLine: "احجز وحدتك الآن",
           phonePrimary: "0541882299",
           phoneSecondary: "0534977299",
           website: "EHYA.SA",
           unifiedNumber: "920033936",
           adLicence: "رقم الإعلان: 7201112278",
-          logo: "",
+          logo: "ehya-amlak-white.svg",
         }}
       />
     </>

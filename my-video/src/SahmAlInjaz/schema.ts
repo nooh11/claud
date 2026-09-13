@@ -8,6 +8,14 @@ export const projectSchema = z.object({
   district: z.string(),
   city: z.string(),
   photo: z.string(),
+  galleryOne: z.string(),
+  galleryTwo: z.string(),
+  galleryThree: z.string(),
+  priceFrom: z.number(),
+  currencyGlyph: z.string(),
+  areaMax: z.number(),
+  modelsCount: z.number(),
+  roomsCount: z.number(),
   places: z
     .array(z.object({ name: z.string(), minutes: z.number() }))
     .length(4),
