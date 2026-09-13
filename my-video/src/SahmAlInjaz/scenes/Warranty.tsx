@@ -22,7 +22,7 @@ export const Warranty: React.FC<Project> = (props) => {
       website={props.website}
       adLicence={props.adLicence}
     >
-      <Interactive.Div name="Head" style={{ position: "absolute", top: 600, right: 88, left: 88, textAlign: "center" }}>
+      <Interactive.Div name="Head" style={{ position: "absolute", top: 430, right: 88, left: 88, textAlign: "center" }}>
         <Reveal name="T1 reveal" start={0} end={1 * fps} curtain="#003E34">
           <Interactive.Div
             name="Headline one"
@@ -45,7 +45,7 @@ export const Warranty: React.FC<Project> = (props) => {
         name="Big number"
         style={{
           position: "absolute",
-          top: 1080,
+          top: 1210,
           right: 88,
           left: 88,
           display: "flex",
@@ -91,7 +91,7 @@ export const Warranty: React.FC<Project> = (props) => {
         name="Warranty chips"
         style={{
           position: "absolute",
-          top: 1330,
+          top: 1400,
           right: 88,
           left: 88,
           display: "grid",

@@ -24,7 +24,7 @@ export const Models: React.FC<Project> = (props) => {
       website={props.website}
       adLicence={props.adLicence}
     >
-      <Interactive.Div name="Head" style={{ position: "absolute", top: 520, right: 88, left: 88, textAlign: "center" }}>
+      <Interactive.Div name="Head" style={{ position: "absolute", top: 430, right: 88, left: 88, textAlign: "center" }}>
         <Reveal name="T1 reveal" start={0} end={1 * fps} curtain="#003E34">
           <Interactive.Div
             name="Headline one"
@@ -47,7 +47,7 @@ export const Models: React.FC<Project> = (props) => {
         name="Spec card"
         style={{
           position: "absolute",
-          top: 800,
+          top: 700,
           right: 88,
           left: 88,
           background: "linear-gradient(180deg,rgba(255,255,255,.96),rgba(241,239,231,.92))",

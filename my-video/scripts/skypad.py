@@ -40,11 +40,12 @@ def extend_sky(src, dst, x0=0.0, x1=1.0, out_w=1080, out_h=1920, deep=0.62, samp
     img.save(dst, "JPEG", quality=92, optimize=True, progressive=True)
     return out_w, out_h, pad
 
-import sys, os
-x0 = float(sys.argv[1]); x1 = float(sys.argv[2])
-deep_v = float(sys.argv[3]) if len(sys.argv) > 3 else 0.62
-w, h, pad = extend_sky("my-video/public/project-exterior.jpg",
-                       "my-video/public/cover-tall.jpg", x0, x1, deep=deep_v)
-crop = x0
-print(f"cover-tall.jpg {w}x{h} | سماء مولّدة {pad}px = {pad/h*100:.0f}% | قصّ جانبي {crop*100:.0f}%")
-print(f"{os.path.getsize('my-video/public/cover-tall.jpg')/1e6:.2f} MB")
+if __name__ == "__main__":
+    import sys, os
+    x0 = float(sys.argv[1]); x1 = float(sys.argv[2])
+    deep_v = float(sys.argv[3]) if len(sys.argv) > 3 else 0.62
+    w, h, pad = extend_sky("my-video/public/project-exterior.jpg",
+                           "my-video/public/cover-tall.jpg", x0, x1, deep=deep_v)
+    crop = x0
+    print(f"cover-tall.jpg {w}x{h} | سماء مولّدة {pad}px = {pad/h*100:.0f}% | قصّ جانبي {crop*100:.0f}%")
+    print(f"{os.path.getsize('my-video/public/cover-tall.jpg')/1e6:.2f} MB")

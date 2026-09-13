@@ -50,10 +50,12 @@ export const PosterFrame: React.FC<{
         src={staticFile(photo)}
         style={{
           position: "absolute",
-          bottom: 430,
-          left: -85,
-          width: 1250,
-          scale: interpolate(frame, [0, 360], [1.06, 1], {
+          inset: 0,
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          objectPosition: "center center",
+          scale: interpolate(frame, [0, 360], [1.05, 1], {
             extrapolateLeft: "clamp",
             extrapolateRight: "clamp",
             easing: Easing.bezier(0.33, 0, 0.2, 1),
@@ -67,7 +69,9 @@ export const PosterFrame: React.FC<{
           position: "absolute",
           inset: 0,
           background:
-            "linear-gradient(180deg,#003E34 0%,#003E34 42%,rgba(0,62,52,.86) 51%,rgba(0,50,42,.42) 60%,rgba(0,34,29,0) 73%),linear-gradient(0deg,#001411 0%,#001411 23%,rgba(0,20,17,.64) 31%,rgba(0,20,17,0) 44%)",
+            "linear-gradient(180deg,rgba(0,34,29,.94) 0%,rgba(0,34,29,.88) 19%,rgba(0,50,42,.55) 30%,rgba(0,62,52,.16) 39%,rgba(0,62,52,0) 46%)," +
+            "linear-gradient(0deg,#001411 0%,rgba(0,20,17,.88) 12%,rgba(0,20,17,.46) 22%,rgba(0,20,17,0) 32%)," +
+            "linear-gradient(0deg,rgba(0,34,29,.20),rgba(0,34,29,.20))",
         }}
       />
 
@@ -137,7 +141,7 @@ export const PosterFrame: React.FC<{
         style={{
           position: "absolute",
           left: 62,
-          top: 700,
+          top: 640,
           writingMode: "vertical-rl",
           rotate: "180deg",
           letterSpacing: 4,
