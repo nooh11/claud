@@ -2,6 +2,8 @@ import "./index.css";
 import { Composition } from "remotion";
 import { SahmAlInjaz } from "./SahmAlInjaz/SahmAlInjaz";
 import { projectSchema } from "./SahmAlInjaz/schema";
+import { TudarEjar } from "./TudarEjar/TudarEjar";
+import { TOTAL_SECONDS } from "./TudarEjar/script";
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -66,6 +68,14 @@ export const RemotionRoot: React.FC = () => {
           website: "EHYA.SA",
           adLicence: "رقم الإعلان 7201112278",
         }}
+      />
+      <Composition
+        id="TudarEjar"
+        component={TudarEjar}
+        durationInFrames={Math.round(TOTAL_SECONDS * 60)}
+        fps={60}
+        width={1080}
+        height={1920}
       />
     </>
   );
