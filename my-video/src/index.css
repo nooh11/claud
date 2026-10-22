@@ -1,5 +1,58 @@
 @import "tailwindcss";
 
+/* تُدار — العربي: Noor · الإنجليزي والأرقام: Alexandria (القسم 5) */
+@font-face {
+  font-family: "Noor";
+  font-style: normal;
+  font-weight: 300;
+  font-display: block;
+  src: url("../public/fonts/Noor/Noor-Light.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Noor";
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url("../public/fonts/Noor/Noor-Regular.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Noor";
+  font-style: normal;
+  font-weight: 700;
+  font-display: block;
+  src: url("../public/fonts/Noor/Noor-Bold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Alexandria";
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url("../public/fonts/Alexandria/Alexandria-Regular.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Alexandria";
+  font-style: normal;
+  font-weight: 500;
+  font-display: block;
+  src: url("../public/fonts/Alexandria/Alexandria-Medium.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Alexandria";
+  font-style: normal;
+  font-weight: 600;
+  font-display: block;
+  src: url("../public/fonts/Alexandria/Alexandria-SemiBold.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Alexandria";
+  font-style: normal;
+  font-weight: 700;
+  font-display: block;
+  src: url("../public/fonts/Alexandria/Alexandria-Bold.ttf") format("truetype");
+}
+
+/* سهم الإنجاز — هوية إحياء */
 @font-face {
   font-family: "IBM Plex Sans Arabic";
   font-style: normal;
@@ -7,7 +60,6 @@
   font-display: block;
   src: url("../public/fonts/IBMPlexSansArabic-400.ttf") format("truetype");
 }
-
 @font-face {
   font-family: "IBM Plex Sans Arabic";
   font-style: normal;
@@ -15,7 +67,6 @@
   font-display: block;
   src: url("../public/fonts/IBMPlexSansArabic-500.ttf") format("truetype");
 }
-
 @font-face {
   font-family: "IBM Plex Sans Arabic";
   font-style: normal;

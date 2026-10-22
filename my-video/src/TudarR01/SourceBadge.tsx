@@ -20,7 +20,7 @@ export const SourceBadge: React.FC<{
         border: "2px solid rgba(74,10,46,0.22)",
         backgroundColor: "rgba(251,246,238,0.72)",
         fontFamily: FONT,
-        fontWeight: 400,
+        fontWeight: 300,
         fontSize: 34,
         color: "rgba(74,10,46,0.72)",
         opacity: interpolate(frame, [startFrame, startFrame + 20], [0, 1], {

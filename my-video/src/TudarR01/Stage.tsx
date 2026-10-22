@@ -1,8 +1,10 @@
 import React from "react";
-import { Interactive, interpolate, Easing, useCurrentFrame } from "remotion";
+import { Img, Interactive, interpolate, Easing, staticFile, useCurrentFrame } from "remotion";
 import { C, FONT } from "./theme";
+import { Logo } from "./Logo";
 
-const S = 3.2; // سماكة الخط الموحّدة للرسوم الخطية
+/** لغة الأيقونات في الهوية: إطار 96، سماكة 9، وصلات حادّة، نهايات مستقيمة. */
+const STROKE = 9;
 
 /** ورقة بيضاء بظل رملي — الأساس البصري للقالب A. */
 const Sheet: React.FC<{
@@ -172,9 +174,9 @@ export const Stage: React.FC<{
               }),
             }}
           >
-            <svg width="230" height="230" viewBox="0 0 100 100" fill="none" stroke={C.burgundy} strokeWidth={S} strokeLinecap="round">
-              <circle cx="50" cy="50" r="40" />
-              <path d="M34 34 L66 66 M66 34 L34 66" stroke={C.orange} strokeWidth={S * 1.6} />
+            <svg width="240" height="240" viewBox="0 0 96 96" fill="none" stroke={C.burgundy} strokeWidth={STROKE} strokeLinejoin="miter" strokeLinecap="butt">
+              <circle cx="48" cy="48" r="36" />
+              <path d="M33 33 L63 63 M63 33 L33 63" stroke={C.orange} />
             </svg>
             <Interactive.Div
               name="Label"
@@ -195,7 +197,7 @@ export const Stage: React.FC<{
         style={{ position: "relative", width: 842, height: 700, display: "flex", justifyContent: "center", alignItems: "center" }}
       >
         <Interactive.Div
-          name="Clock"
+          name="Calendar"
           style={{
             opacity: interpolate(frame, [startFrame, startFrame + 16], [0, 1], {
               extrapolateLeft: "clamp",
@@ -203,36 +205,7 @@ export const Stage: React.FC<{
             }),
           }}
         >
-          <svg width="420" height="420" viewBox="0 0 100 100" fill="none" stroke={C.burgundy} strokeWidth={S} strokeLinecap="round">
-            <circle cx="50" cy="52" r="36" />
-            <path d="M50 24 L50 18 M50 18 L44 12 M50 18 L56 12" />
-            <path d="M50 52 L50 34" strokeWidth={S * 1.3} />
-            <path d="M50 52 L68 60" strokeWidth={S * 1.3} stroke={C.orange} />
-            <path d="M24 26 L18 20 M76 26 L82 20" />
-          </svg>
-        </Interactive.Div>
-        <Interactive.Div
-          name="Spark"
-          style={{
-            position: "absolute",
-            top: 150,
-            left: 190,
-            fontFamily: FONT,
-            fontWeight: 700,
-            fontSize: 170,
-            color: C.orange,
-            opacity: interpolate(frame, [startFrame + 40, startFrame + 56], [0, 1], {
-              extrapolateLeft: "clamp",
-              extrapolateRight: "clamp",
-            }),
-            rotate: interpolate(frame, [startFrame + 40, startFrame + 56], ["-16deg", "-6deg"], {
-              extrapolateLeft: "clamp",
-              extrapolateRight: "clamp",
-              easing: Easing.bezier(0.16, 1, 0.3, 1),
-            }),
-          }}
-        >
-          !
+          <Img name="CalendarIcon" src={staticFile("tudar/icons/tudar-icon-calendar-primary.svg")} style={{ width: 400, height: 400 }} />
         </Interactive.Div>
       </Interactive.Div>
     );
@@ -244,35 +217,21 @@ export const Stage: React.FC<{
         name="StageVerify"
         style={{ position: "relative", width: 842, height: 700, display: "flex", justifyContent: "center", alignItems: "center" }}
       >
-        <Sheet name="Verified" w={520} h={600} tilt={-2}>
-          <Interactive.Div
-            name="Head"
-            style={{ position: "absolute", top: 50, right: 40, width: 210, height: 16, borderRadius: 8, backgroundColor: C.burgundy }}
-          />
-          <Ruled rows={6} top={118} />
-        </Sheet>
         <Interactive.Div
-          name="Stamp"
+          name="Contract"
           style={{
-            position: "absolute",
-            bottom: 90,
-            left: 150,
-            scale: interpolate(frame, [startFrame + 20, startFrame + 40], [1.5, 1], {
+            opacity: interpolate(frame, [startFrame, startFrame + 16], [0, 1], {
+              extrapolateLeft: "clamp",
+              extrapolateRight: "clamp",
+            }),
+            translate: interpolate(frame, [startFrame, startFrame + 26], ["0px 32px", "0px 0px"], {
               extrapolateLeft: "clamp",
               extrapolateRight: "clamp",
               easing: Easing.bezier(0.16, 1, 0.3, 1),
             }),
-            opacity: interpolate(frame, [startFrame + 20, startFrame + 34], [0, 1], {
-              extrapolateLeft: "clamp",
-              extrapolateRight: "clamp",
-            }),
-            rotate: "-8deg",
           }}
         >
-          <svg width="250" height="250" viewBox="0 0 100 100" fill="none" stroke={C.orange} strokeWidth={S * 1.5} strokeLinecap="round">
-            <circle cx="50" cy="50" r="40" />
-            <path d="M31 51 L44 64 L70 37" strokeWidth={S * 2} />
-          </svg>
+          <Img name="ContractIcon" src={staticFile("tudar/icons/tudar-icon-contract-primary.svg")} style={{ width: 430, height: 430 }} />
         </Interactive.Div>
       </Interactive.Div>
     );
@@ -313,25 +272,7 @@ export const Stage: React.FC<{
               boxShadow: "20px 24px 0px rgba(230,211,186,0.9)",
             }}
           >
-            <Interactive.Div
-              name="LogoSlot"
-              style={{
-                width: 216,
-                height: 84,
-                border: "2px dashed rgba(243,230,213,0.55)",
-                borderRadius: 12,
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                fontFamily: FONT,
-                fontWeight: 400,
-                fontSize: 28,
-                color: "rgba(243,230,213,0.65)",
-                direction: "rtl",
-              }}
-            >
-              شعار تُدار
-            </Interactive.Div>
+            <Logo width={300} tone="reverse" />
             <Interactive.Div
               name="Promise"
               style={{
@@ -346,9 +287,6 @@ export const Stage: React.FC<{
                 color: C.sand,
               }}
             >
-              <svg width="58" height="58" viewBox="0 0 100 100" fill="none" stroke={C.orange} strokeWidth={S * 2.4} strokeLinecap="round">
-                <path d="M24 52 L42 70 L76 30" />
-              </svg>
               توثيق · تحصيل · متابعة
             </Interactive.Div>
           </Interactive.Div>

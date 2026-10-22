@@ -1,6 +1,7 @@
 import React from "react";
 import { AbsoluteFill, Interactive } from "remotion";
-import { C, FONT, SAFE } from "./theme";
+import { C, SAFE } from "./theme";
+import { Logo } from "./Logo";
 import { Grain } from "./Grain";
 import { Stage } from "./Stage";
 import { Caption } from "./Caption";
@@ -20,32 +21,16 @@ export const Frame: React.FC<{
 
     <Interactive.Div
       name="BrandMark"
-      style={{
-        position: "absolute",
-        top: SAFE.top,
-        right: SAFE.right,
-        width: 190,
-        height: 66,
-        border: "2px dashed rgba(74,10,46,0.3)",
-        borderRadius: 10,
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        fontFamily: FONT,
-        fontWeight: 400,
-        fontSize: 24,
-        color: "rgba(74,10,46,0.5)",
-        direction: "rtl",
-      }}
+      style={{ position: "absolute", top: SAFE.top, right: SAFE.right }}
     >
-      شعار تُدار
+      <Logo width={SAFE.logoWidth} tone="primary" />
     </Interactive.Div>
 
     <Interactive.Div
       name="StageArea"
       style={{
         position: "absolute",
-        top: 350,
+        top: 400,
         right: SAFE.right,
         left: SAFE.left,
         height: 660,

@@ -2,8 +2,12 @@ import React from "react";
 import { AbsoluteFill, Interactive, interpolate, Easing, useCurrentFrame } from "remotion";
 import { C, FONT } from "./theme";
 import { Grain } from "./Grain";
+import { LogoBuild } from "./Logo";
 
-/** الكارت الختامي — 3 ثوان، نداء فعل واحد. */
+/**
+ * الكارت الختامي — 3 ثوانٍ. الشعار يُبنى بالترتيب المعتمد (القسم 8)،
+ * والنسخة المعكوسة لأن الخلفية برغندي.
+ */
 export const EndCard: React.FC = () => {
   const frame = useCurrentFrame();
   return (
@@ -13,63 +17,39 @@ export const EndCard: React.FC = () => {
         name="Center"
         style={{
           position: "absolute",
-          top: 560,
+          top: 520,
           right: 150,
           left: 88,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          gap: 46,
+          gap: 72,
           direction: "rtl",
-          opacity: interpolate(frame, [0, 18], [0, 1], {
-            extrapolateLeft: "clamp",
-            extrapolateRight: "clamp",
-          }),
-          translate: interpolate(frame, [0, 26], ["0px 30px", "0px 0px"], {
-            extrapolateLeft: "clamp",
-            extrapolateRight: "clamp",
-            easing: Easing.bezier(0.16, 1, 0.3, 1),
-          }),
         }}
       >
-        <Interactive.Div
-          name="LogoSlot"
-          style={{
-            width: 216,
-            height: 90,
-            border: "2px dashed rgba(243,230,213,0.5)",
-            borderRadius: 12,
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            fontFamily: FONT,
-            fontWeight: 400,
-            fontSize: 28,
-            color: "rgba(243,230,213,0.6)",
-          }}
-        >
-          شعار تُدار
-        </Interactive.Div>
-
-        <Interactive.Div
-          name="Line"
-          style={{ fontFamily: FONT, fontWeight: 700, fontSize: 76, lineHeight: 1.4, color: C.sand, textAlign: "center" }}
-        >
-          إدارة أملاكك
-          <br />
-          بعقود موثّقة
-        </Interactive.Div>
+        <LogoBuild width={540} tone="reverse" startFrame={0} />
 
         <Interactive.Div
           name="CTA"
           style={{
-            padding: "20px 52px",
-            borderRadius: 999,
-            backgroundColor: C.orange,
             fontFamily: FONT,
             fontWeight: 700,
-            fontSize: 48,
-            color: C.paper,
+            fontSize: 50,
+            lineHeight: 1,
+            color: C.burgundy,
+            backgroundColor: C.orange,
+            borderRadius: 999,
+            padding: "22px 58px 28px",
+            opacity: interpolate(frame, [120, 146], [0, 1], {
+              extrapolateLeft: "clamp",
+              extrapolateRight: "clamp",
+              easing: Easing.bezier(0.16, 1, 0.3, 1),
+            }),
+            translate: interpolate(frame, [120, 146], ["0px 22px", "0px 0px"], {
+              extrapolateLeft: "clamp",
+              extrapolateRight: "clamp",
+              easing: Easing.bezier(0.16, 1, 0.3, 1),
+            }),
           }}
         >
           راسلنا
@@ -77,7 +57,16 @@ export const EndCard: React.FC = () => {
 
         <Interactive.Div
           name="Licence"
-          style={{ fontFamily: FONT, fontWeight: 400, fontSize: 30, color: "rgba(243,230,213,0.6)" }}
+          style={{
+            fontFamily: FONT,
+            fontWeight: 300,
+            fontSize: 30,
+            color: "rgba(243,230,213,0.62)",
+            opacity: interpolate(frame, [140, 164], [0, 1], {
+              extrapolateLeft: "clamp",
+              extrapolateRight: "clamp",
+            }),
+          }}
         >
           رخصة فال · يُضاف الرقم
         </Interactive.Div>

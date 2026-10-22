@@ -2,30 +2,42 @@ import React from "react";
 import { Interactive, interpolate, Easing, useCurrentFrame } from "remotion";
 import { C, FONT } from "./theme";
 
-type Group = { readonly words: readonly string[]; readonly accent: boolean };
-
-const PUNCT = /^[؟?!.،,:]+$/;
+type Group = { readonly words: readonly string[]; readonly accent: boolean; readonly tail?: string };
 
 /**
  * يبني مجموعات: كل تتابع كلمات بين *نجمتين* = كبسولة واحدة لا تنكسر.
  * علامات الترقيم تلتصق بالكلمة قبلها حتى لا تيتم في سطر جديد.
  */
+
+const PUNCT = /^[؟?!.،,:]+$/;
+
 const groupize = (text: string): readonly Group[] => {
-  const groups: Group[] = [];
+  const flat: { word: string; accent: boolean; tail?: string }[] = [];
   text.split(/(\*[^*]+\*)/).filter(Boolean).forEach((segment) => {
     const accent = segment.startsWith("*") && segment.endsWith("*");
     const body = accent ? segment.slice(1, -1) : segment;
-    const words = body.split(" ").filter(Boolean);
-    if (words.length === 0) return;
+    body.split(" ").filter(Boolean).forEach((word) => {
+      const prev = flat[flat.length - 1];
+      if (PUNCT.test(word) && prev) {
+        if (prev.accent) {
+          prev.tail = (prev.tail ?? "") + word;
+        } else {
+          prev.word += word;
+        }
+        return;
+      }
+      flat.push({ word, accent });
+    });
+  });
+
+  const groups: Group[] = [];
+  flat.forEach((item) => {
     const last = groups[groups.length - 1];
-    if (!accent && last && words.length === 1 && PUNCT.test(words[0])) {
-      groups[groups.length - 1] = {
-        accent: last.accent,
-        words: [...last.words.slice(0, -1), last.words[last.words.length - 1] + words[0]],
-      };
+    if (last && last.accent === item.accent && !last.tail) {
+      groups[groups.length - 1] = { accent: last.accent, words: [...last.words, item.word], tail: item.tail };
       return;
     }
-    groups.push({ words, accent });
+    groups.push({ accent: item.accent, words: [item.word], tail: item.tail });
   });
   return groups;
 };
@@ -41,7 +53,7 @@ const Word: React.FC<{
       name={word}
       style={{
         display: "inline-block",
-        color: accent ? C.paper : C.burgundy,
+        color: C.burgundy,
         opacity: interpolate(frame, [at, at + 17], [0, 1], {
           extrapolateLeft: "clamp",
           extrapolateRight: "clamp",
@@ -97,16 +109,31 @@ export const Caption: React.FC<{
               display: "flex",
               flexDirection: "row",
               alignItems: "center",
-              gap: 16,
+              gap: 0,
               whiteSpace: "nowrap",
-              backgroundColor: group.accent ? C.orange : "transparent",
-              borderRadius: group.accent ? 16 : 0,
-              padding: group.accent ? "2px 22px 12px" : "2px 0px 12px",
             }}
           >
-            {group.words.map((word, wi) => (
-              <Word key={`${word}-${wi}`} word={word} at={base + wi * 7 - offset * 0} accent={group.accent} />
-            ))}
+            <Interactive.Div
+              name="Body"
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                gap: 16,
+                backgroundColor: group.accent ? C.orange : "transparent",
+                borderRadius: group.accent ? 16 : 0,
+                padding: group.accent ? "2px 22px 12px" : "2px 0px 12px",
+              }}
+            >
+              {group.words.map((word, wi) => (
+                <Word key={`${word}-${wi}`} word={word} at={base + wi * 7 - offset * 0} accent={group.accent} />
+              ))}
+            </Interactive.Div>
+            {group.tail ? (
+              <Interactive.Div name="Tail" style={{ paddingBottom: 12, color: C.burgundy }}>
+                {group.tail}
+              </Interactive.Div>
+            ) : null}
           </Interactive.Div>
         );
       })}
