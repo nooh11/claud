@@ -1,0 +1,25 @@
+/** R01 — «عقدك برّا إيجار؟» · الأحد 25 أكتوبر · مفيد · القالب A · 30 ث */
+export type Beat = {
+  readonly from: number;
+  readonly to: number;
+  /** النص على الشاشة. ما بين *نجمتين* يأخذ البرتقالي داخل كبسولة. */
+  readonly caption: string;
+  readonly stage: string;
+  /** شارة المصدر تظهر أثناء ذكر المعلومة فقط. */
+  readonly source?: string;
+};
+
+export const KEYWORD = "عقد";
+
+export const beats: readonly Beat[] = [
+  { from: 0,    to: 2.5,  caption: "مأجّر شقتك بعقد *ورق*؟", stage: "paper" },
+  { from: 2.5,  to: 8,    caption: "«إيجار»: العقد غير المسجّل *ما يُعتدّ فيه*", stage: "quote",
+    source: "المصدر: تصريح «إيجار» — سبق، 9 يوليو 2025" },
+  { from: 8,    to: 13,   caption: "لا *إداريًا* ولا *قضائيًا*", stage: "void" },
+  { from: 13,   to: 18,   caption: "يتأخّر المستأجر.. يصير *خلاف*", stage: "delay" },
+  { from: 18,   to: 23,   caption: "الحل: *وثّق العقد*", stage: "verify" },
+  { from: 23,   to: 27,   caption: "خلّها على *تُدار*", stage: "tudar" },
+  { from: 27,   to: 30,   caption: "", stage: "end" },
+];
+
+export const TOTAL = 30;

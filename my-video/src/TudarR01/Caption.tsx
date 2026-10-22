@@ -1,0 +1,115 @@
+import React from "react";
+import { Interactive, interpolate, Easing, useCurrentFrame } from "remotion";
+import { C, FONT } from "./theme";
+
+type Group = { readonly words: readonly string[]; readonly accent: boolean };
+
+const PUNCT = /^[؟?!.،,:]+$/;
+
+/**
+ * يبني مجموعات: كل تتابع كلمات بين *نجمتين* = كبسولة واحدة لا تنكسر.
+ * علامات الترقيم تلتصق بالكلمة قبلها حتى لا تيتم في سطر جديد.
+ */
+const groupize = (text: string): readonly Group[] => {
+  const groups: Group[] = [];
+  text.split(/(\*[^*]+\*)/).filter(Boolean).forEach((segment) => {
+    const accent = segment.startsWith("*") && segment.endsWith("*");
+    const body = accent ? segment.slice(1, -1) : segment;
+    const words = body.split(" ").filter(Boolean);
+    if (words.length === 0) return;
+    const last = groups[groups.length - 1];
+    if (!accent && last && words.length === 1 && PUNCT.test(words[0])) {
+      groups[groups.length - 1] = {
+        accent: last.accent,
+        words: [...last.words.slice(0, -1), last.words[last.words.length - 1] + words[0]],
+      };
+      return;
+    }
+    groups.push({ words, accent });
+  });
+  return groups;
+};
+
+const Word: React.FC<{
+  readonly word: string;
+  readonly at: number;
+  readonly accent: boolean;
+}> = ({ word, at, accent }) => {
+  const frame = useCurrentFrame();
+  return (
+    <Interactive.Div
+      name={word}
+      style={{
+        display: "inline-block",
+        color: accent ? C.paper : C.burgundy,
+        opacity: interpolate(frame, [at, at + 17], [0, 1], {
+          extrapolateLeft: "clamp",
+          extrapolateRight: "clamp",
+          easing: Easing.bezier(0.215, 0.61, 0.355, 1),
+        }),
+        translate: interpolate(frame, [at, at + 17], ["0px 24px", "0px 0px"], {
+          extrapolateLeft: "clamp",
+          extrapolateRight: "clamp",
+          easing: Easing.bezier(0.215, 0.61, 0.355, 1),
+        }),
+      }}
+    >
+      {word}
+    </Interactive.Div>
+  );
+};
+
+/** كابشن كلمة-كلمة: كل كلمة ترتفع 24px وتظهر في 0.28ث. الكبسولة تلفّ العبارة كاملة. */
+export const Caption: React.FC<{
+  readonly text: string;
+  readonly startFrame: number;
+  readonly size?: number;
+}> = ({ text, startFrame, size = 84 }) => {
+  const groups = groupize(text);
+  let cursor = 0;
+
+  return (
+    <Interactive.Div
+      name="Caption"
+      style={{
+        direction: "rtl",
+        display: "flex",
+        flexWrap: "wrap",
+        justifyContent: "center",
+        alignItems: "center",
+        gap: "14px 16px",
+        fontFamily: FONT,
+        fontWeight: 700,
+        fontSize: size,
+        lineHeight: 1.3,
+        textAlign: "center",
+      }}
+    >
+      {groups.map((group, gi) => {
+        const base = startFrame + cursor * 7;
+        const offset = cursor;
+        cursor += group.words.length;
+        return (
+          <Interactive.Div
+            key={`g${gi}`}
+            name={group.accent ? "Accent" : "Plain"}
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              gap: 16,
+              whiteSpace: "nowrap",
+              backgroundColor: group.accent ? C.orange : "transparent",
+              borderRadius: group.accent ? 16 : 0,
+              padding: group.accent ? "2px 22px 12px" : "2px 0px 12px",
+            }}
+          >
+            {group.words.map((word, wi) => (
+              <Word key={`${word}-${wi}`} word={word} at={base + wi * 7 - offset * 0} accent={group.accent} />
+            ))}
+          </Interactive.Div>
+        );
+      })}
+    </Interactive.Div>
+  );
+};
